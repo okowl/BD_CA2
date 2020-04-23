@@ -18,4 +18,4 @@ $('#twitter-button').on('click', function() {
             console.log('self data:', data);
         })
     });
-});
+})
