@@ -19,14 +19,15 @@ function loadFriendsIDs(userID, twitter){
     twitter.get('1.1/followers/list.json?cursor=-1&screen_name='+ userID)
         .then(data => {
             var locationList = data.users;
-
+            //var tempList = [];
+            listOfCities = [];
             for(var i = 0; i < locationList.length; i++) {
-                console.log(locationList[i].screen_name);
-                if (locationList[i].location !== '') {
 
+                if (locationList[i].location !== '') {
                     listOfCities.push(JSON.stringify(locationList[i].location));
                 }
             }
+
         })
 }
 
