@@ -19,15 +19,17 @@ function loadFriendsIDs(userID, twitter){
     twitter.get('1.1/followers/list.json?cursor=-1&screen_name='+ userID)
         .then(data => {
             var locationList = data.users;
-            //var tempList = [];
-            listOfCities = [];
+            var tempList = [];
+
             for(var i = 0; i < locationList.length; i++) {
 
                 if (locationList[i].location !== '') {
-                    listOfCities.push(JSON.stringify(locationList[i].location));
+                    tempList.push(JSON.stringify(locationList[i].location));
                 }
             }
 
+            listOfCities = tempList.slice(0, tempList.length);
+            console.log(listOfCities);
         })
 }
 
@@ -99,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
             var userID = document.getElementById('userID').value;
             loadPhoto(userID, twitter);
             loadFriendsIDs(userID, twitter);
-            console.log(listOfCities);
+
         })
     });
 });
