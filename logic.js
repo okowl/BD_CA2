@@ -70,16 +70,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         // Auxiliary class that can be used
 // instead of GeoObject with the “Point” geometry type (see the previous example)
-        var myGeocoder = ymaps.geocode("Tula");
+        var myGeocoder = ymaps.geocode("Dublin, Ireland", {results:1});
         myGeocoder.then(
             function (res) {
                 const coords = res.geoObjects.get(0).geometry.getCoordinates();
                 var myPlacemark = new ymaps.Placemark(coords);
                 myMap.geoObjects.add(myPlacemark);
 
-            },
-            function (err) {
-                console.log(err);
             }
         );
     }
