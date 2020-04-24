@@ -16,13 +16,14 @@ function loadPhoto(userID, twitter) {
 }
 
 function loadFriendsIDs(userID, twitter){
-    twitter.get('1.1/followers/list.json?cursor=-1&screen_name=twitterdev&skip_status=true&include_user_entities=false'+ userID)
+    twitter.get('1.1/followers/list.json?cursor=-1&screen_name='+ userID)
         .then(data => {
             var locationList = data.users;
 
             for(var i = 0; i < locationList.length; i++) {
-
+                console.log(locationList[i].screen_name);
                 if (locationList[i].location !== '') {
+
                     listOfCities.push(JSON.stringify(locationList[i].location));
                 }
             }
