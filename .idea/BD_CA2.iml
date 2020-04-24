@@ -10,5 +10,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="oauth" level="application" />
     <orderEntry type="library" name="jquery-3.2.1" level="application" />
+    <orderEntry type="library" name="cloudmersive-document-convert-client" level="application" />
+    <orderEntry type="library" name="cloudmersive-image-client" level="application" />
   </component>
 </module>
