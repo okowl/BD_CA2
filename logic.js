@@ -1,4 +1,4 @@
-var listOfCities = [];
+
 
 /**
  * This function loads twitter profile photo of selected user
@@ -15,7 +15,8 @@ function loadPhoto(userID, twitter) {
     })
 }
 
-function loadFriendsIDs(userID, twitter){
+function loadFriendsIDs(userID, twitter, myMap){
+    var listOfCities = [];
     twitter.get('1.1/followers/list.json?cursor=-1&screen_name='+ userID)
         .then(data => {
             var locationList = data.users;
@@ -29,19 +30,35 @@ function loadFriendsIDs(userID, twitter){
             }
 
             listOfCities = tempList.slice(0, tempList.length);
-            console.log(listOfCities);
+            addNewLandmark(myMap, listOfCities);
         })
 }
 
+function addNewLandmark(myMap, listOfCities){
+    myMap.geoObjects.removeAll();
+    for(var i = 0; i <listOfCities.length; i++) {
+
+        var myGeocoder = ymaps.geocode(listOfCities[i], {results: 1});
+        myGeocoder.then(
+            function (res) {
+                const coords = res.geoObjects.get(0).geometry.getCoordinates();
+                var myPlacemark = new ymaps.Placemark(coords);
+                myMap.geoObjects.add(myPlacemark);
+            }
+        );
+    }
+}
 /**
  *
  */
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    var myMap;
+
     function init() {
         // Creating the map.
-        var myMap = new ymaps.Map("map", {
+        myMap = new ymaps.Map("map", {
             // The map center coordinates.
             // Default order: “latitude, longitude”.
             // To not manually determine the map center coordinates,
@@ -54,15 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // Auxiliary class that can be used
         // instead of GeoObject with the “Point” geometry type (see the previous example)
 
-        var myGeocoder = ymaps.geocode("Kiev, Ukraine", {results: 1});
-        myGeocoder.then(
-            function (res) {
-                const coords = res.geoObjects.get(0).geometry.getCoordinates();
-                var myPlacemark = new ymaps.Placemark(coords);
-                myMap.geoObjects.add(myPlacemark);
-
-            }
-        );
     }
 
     ymaps.ready(init);
@@ -100,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('load').addEventListener('click', function () {
             var userID = document.getElementById('userID').value;
             loadPhoto(userID, twitter);
-            loadFriendsIDs(userID, twitter);
+            loadFriendsIDs(userID, twitter, myMap);
 
         })
     });
