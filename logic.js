@@ -1,5 +1,3 @@
-
-
 /**
  * This function loads twitter profile photo of selected user
  * @param userID - Twitter user name
@@ -15,14 +13,14 @@ function loadPhoto(userID, twitter) {
     })
 }
 
-function loadFriendsIDs(userID, twitter, myMap){
+function loadFriendsIDs(userID, twitter, myMap) {
     var listOfCities = [];
-    twitter.get('1.1/followers/list.json?cursor=-1&screen_name='+ userID)
+    twitter.get('1.1/followers/list.json?cursor=-1&screen_name=' + userID)
         .then(data => {
             var locationList = data.users;
             var tempList = [];
 
-            for(var i = 0; i < locationList.length; i++) {
+            for (var i = 0; i < locationList.length; i++) {
 
                 if (locationList[i].location !== '') {
                     tempList.push(JSON.stringify(locationList[i].location));
@@ -34,9 +32,9 @@ function loadFriendsIDs(userID, twitter, myMap){
         })
 }
 
-function addNewLandmark(myMap, listOfCities){
+function addNewLandmark(myMap, listOfCities) {
     myMap.geoObjects.removeAll();
-    for(var i = 0; i <listOfCities.length; i++) {
+    for (var i = 0; i < listOfCities.length; i++) {
 
         var myGeocoder = ymaps.geocode(listOfCities[i], {results: 1});
         myGeocoder.then(
@@ -48,6 +46,7 @@ function addNewLandmark(myMap, listOfCities){
         );
     }
 }
+
 /**
  *
  */
@@ -84,32 +83,34 @@ document.addEventListener("DOMContentLoaded", function () {
     /**
      * @TODO read documentation OAUTH and try remove popup whatsoever
      */
-    OAuth.popup('twitter', {cache: true}).then(twitter => {
+    // OAuth.popup('twitter', {cache: true}).then(twitter => {
 
-        // Prompts 'welcome' message with User's email on successful login
-        // #me() is a convenient method to retrieve user data without requiring you
-        // to know which OAuth provider url to call
-        twitter.me().then(data => {
+    // // Prompts 'welcome' message with User's email on successful login
+    // // #me() is a convenient method to retrieve user data without requiring you
+    // // to know which OAuth provider url to call
+    // twitter.me().then(data => {
+    //
+    //     twitter.get('1.1/users/lookup.json?screen_name=' + data.alias).then(data => {
+    //         var link = data[0].profile_image_url_https;
+    //         link = link.replace('_normal', '');
+    //         document.getElementById('photo').src = link;
+    //         console.log(link);
+    //
+    //     })
+    // });
+    // // Retrieves user data from OAuth provider by using #get() and
+    // // OAuth provider url
+    // twitter.get('/1.1/account/verify_credentials.json?include_email=true').then(data => {
+    //
+    // });
 
-            twitter.get('1.1/users/lookup.json?screen_name=' + data.alias).then(data => {
-                var link = data[0].profile_image_url_https;
-                link = link.replace('_normal', '');
-                document.getElementById('photo').src = link;
-                console.log(link);
-
-            })
-        });
-        // Retrieves user data from OAuth provider by using #get() and
-        // OAuth provider url
-        twitter.get('/1.1/account/verify_credentials.json?include_email=true').then(data => {
-
-        });
-
-        document.getElementById('load').addEventListener('click', function () {
+    document.getElementById('load').addEventListener('click', function () {
+        OAuth.popup('twitter', {cache: true}).then(twitter => {
             var userID = document.getElementById('userID').value;
             loadPhoto(userID, twitter);
             loadFriendsIDs(userID, twitter, myMap);
 
         })
+
     });
 });
