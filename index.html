@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <title>jeees</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
 
     <script src="https://cdn.rawgit.com/oauth-io/oauth-js/c5af4519/dist/oauth.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="logic.js"></script>
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=dfdd1cdc-7f43-4325-be85-088cf131f087&lang=en_US" type="text/javascript">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=dfdd1cdc-7f43-4325-be85-088cf131f087&lang=en_US"
+            type="text/javascript">
     </script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -30,17 +32,33 @@
 <body>
 
 <div class="container">
-<input id="userID" type="text">
-    <button id="load">Load photo</button>
+    <div class="row">
+        <div class="col s12"><span class="flow-text">Instructions This div is 12-columns wide on all screen sizes</span>
+        </div>
 
-<img id="photo">
+    </div>
+    <div class="row">
+        <div class="col s3"><input placeholder="Twitter nickname" id="userID" type="text"></div>
+        <div class="col s6">
 
+            <a class="waves-effect waves-light btn-large" id="load">
+                Load photo
+                <i class="material-icons right">search</i>
+            </a>
+        </div>
+    </div>
 
-<div id="map" style="width: 600px; height: 400px"></div>
+    <div class="row">
+        <div class="col s6">
+            <div id="map" style="width: 600px; height: 400px"></div>
+        </div>
+        <div class="col s6">
+            <img class="circle responsive-img" id="photo" >
+        </div>
+    </div>
+
 
 </div>
-<!--<a id="twitter-onload" class="btn btn-block btn-social btn-twitter">-->
-<!--    <i class="fa fa-twitter"></i> Sign in with Twitter-->
-<!--</a>-->
+
 </body>
 </html>

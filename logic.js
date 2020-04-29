@@ -80,29 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     // Use popup for OAuth
-    /**
-     * @TODO read documentation OAUTH and try remove popup whatsoever
-     */
-    // OAuth.popup('twitter', {cache: true}).then(twitter => {
-
-    // // Prompts 'welcome' message with User's email on successful login
-    // // #me() is a convenient method to retrieve user data without requiring you
-    // // to know which OAuth provider url to call
-    // twitter.me().then(data => {
-    //
-    //     twitter.get('1.1/users/lookup.json?screen_name=' + data.alias).then(data => {
-    //         var link = data[0].profile_image_url_https;
-    //         link = link.replace('_normal', '');
-    //         document.getElementById('photo').src = link;
-    //         console.log(link);
-    //
-    //     })
-    // });
-    // // Retrieves user data from OAuth provider by using #get() and
-    // // OAuth provider url
-    // twitter.get('/1.1/account/verify_credentials.json?include_email=true').then(data => {
-    //
-    // });
 
     document.getElementById('load').addEventListener('click', function () {
         OAuth.popup('twitter', {cache: true}).then(twitter => {
