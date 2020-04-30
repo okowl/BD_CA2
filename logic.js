@@ -1,4 +1,9 @@
 /**
+ * CCT BigData CA2
+ * @AUTHOR Kiseleva Olga 2017136
+ */
+
+/**
  * This function loads twitter profile photo of selected user
  * @param userID - Twitter user name
  * @param twitter
@@ -13,13 +18,19 @@ function loadPhoto(userID, twitter) {
     })
 }
 
+/**
+ * Function which will load top 20 friends of the selected twitter user
+ * @param userID - nickname that is entered in input filed
+ * @param myMap - map API parameter to pass scanned marks
+ * @param twitter
+ */
 function loadFriendsIDs(userID, twitter, myMap) {
     var listOfCities = [];
     twitter.get('1.1/followers/list.json?cursor=-1&screen_name=' + userID)
         .then(data => {
             var locationList = data.users;
             var tempList = [];
-
+            //loop
             for (var i = 0; i < locationList.length; i++) {
 
                 if (locationList[i].location !== '') {
@@ -32,11 +43,16 @@ function loadFriendsIDs(userID, twitter, myMap) {
         })
 }
 
+/**
+ * This function will place all geo markers on the map after scanning them from twitter
+ * @param myMap - map API parameter to pass scanned marks
+ * @param listOfCities - Array of geolocation that was scanned from the twitter
+ */
 function addNewLandmark(myMap, listOfCities) {
     myMap.geoObjects.removeAll();
     for (var i = 0; i < listOfCities.length; i++) {
 
-        var myGeocoder = ymaps.geocode(listOfCities[i], {results: 1});
+        var myGeocoder = ymaps.geocode(listOfCities[i], {results: 1}); //call to map API to place it
         myGeocoder.then(
             function (res) {
                 const coords = res.geoObjects.get(0).geometry.getCoordinates();
@@ -48,7 +64,7 @@ function addNewLandmark(myMap, listOfCities) {
 }
 
 /**
- *
+ * Vanilla JS that initiates the page with all required elements and calls to to the different API that required for this app to work
  */
 
 document.addEventListener("DOMContentLoaded", function () {
